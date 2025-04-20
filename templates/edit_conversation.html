@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Conversation - Global Youth Atlas</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Leaflet JS (must be after CSS) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+            crossorigin=""></script>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>Global Youth Atlas</h1>
+            <p>Edit your conversation</p>
+        </div>
+        <nav class="header-nav">
+            <a href="/" class="nav-button"><i class="fas fa-globe"></i> World Map</a>
+            <a href="/collection" class="nav-button"><i class="fas fa-book-open"></i> My Collection</a>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="form-container">
+            <h2><i class="fas fa-edit"></i> Edit Conversation</h2>
+            <p class="form-intro">Update the details of your conversation with {{ conversation.name }}.</p>
+            
+            <form action="/edit-conversation/{{ conversation.id }}" method="POST" enctype="multipart/form-data">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Person's Name</label>
+                        <input type="text" id="name" name="name" required value="{{ conversation.name }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" id="country" name="country" required value="{{ conversation.country }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="region">Region</label>
+                        <input type="text" id="region" name="region" required value="{{ conversation.region }}">
+                    </div>
+                    
+                    <div class="form-group location-group">
+                        <label>Location on Map</label>
+                        <div class="coordinates-inputs">
+                            <input type="number" id="latitude" name="latitude" step="any" required value="{{ conversation.coordinates[0] }}">
+                            <input type="number" id="longitude" name="longitude" step="any" required value="{{ conversation.coordinates[1] }}">
+                        </div>
+                        <div id="location-picker-map"></div>
+                        <p class="help-text">Click on the map to update the location</p>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="quote">Memorable Quote</label>
+                        <textarea id="quote" name="quote" required>{{ conversation.quote }}</textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="photo">Photo Memory</label>
+                        <div class="file-upload">
+                            <input type="file" id="photo" name="photo" accept="image/*">
+                            <div class="file-preview">
+                                {% if conversation.photo_url %}
+                                    <img id="photo-preview" src="{{ url_for('static', filename=conversation.photo_url) }}" alt="Current photo">
+                                {% else %}
+                                    <img id="photo-preview" src="#" alt="Preview" style="display: none;">
+                                    <p id="no-file-text">No file selected</p>
+                                {% endif %}
+                            </div>
+                            <p class="help-text">Leave empty to keep the current photo</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <a href="/collection" class="button secondary">Cancel</a>
+                    <button type="submit" class="button primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Global Youth Atlas - Explore the world one conversation at a time</p>
+    </footer>
+    
+    <!-- Custom JS -->
+    <script>
+        // Location picker map
+        const locationMap = L.map('location-picker-map').setView([{{ conversation.coordinates[0] }}, {{ conversation.coordinates[1] }}], 5);
+        
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(locationMap);
+        
+        // Add initial marker
+        let marker = L.marker([{{ conversation.coordinates[0] }}, {{ conversation.coordinates[1] }}]).addTo(locationMap);
+        
+        locationMap.on('click', function(e) {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+            
+            document.getElementById('latitude').value = lat.toFixed(6);
+            document.getElementById('longitude').value = lng.toFixed(6);
+            
+            marker.setLatLng(e.latlng);
+        });
+        
+        // Photo preview
+        document.getElementById('photo').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const preview = document.getElementById('photo-preview');
+                    preview.src = event.target.result;
+                    preview.style.display = 'block';
+                    
+                    const noFileText = document.getElementById('no-file-text');
+                    if (noFileText) {
+                        noFileText.style.display = 'none';
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

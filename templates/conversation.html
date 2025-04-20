@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Details - Global Youth Atlas</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Leaflet JS (must be after CSS) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+            crossorigin=""></script>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>Global Youth Atlas</h1>
+            <p>Conversation details</p>
+        </div>
+        <nav class="header-nav">
+            <a href="/" class="nav-button"><i class="fas fa-globe"></i> World Map</a>
+            <a href="/collection" class="nav-button"><i class="fas fa-book-open"></i> My Collection</a>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="conversation-container">
+            <div id="conversation-details">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading conversation details...</p>
+                </div>
+            </div>
+            
+            <div class="conversation-location">
+                <h3>Location</h3>
+                <div id="conversation-map"></div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Global Youth Atlas - Explore the world one conversation at a time</p>
+    </footer>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/photo-booth.js') }}"></script>
+    <script>
+        // Get conversation ID from Flask
+        const conversationId = "{{ conversation_id }}";
+        
+        // Fetch conversation data
+        fetch('/api/atlas-data')
+            .then(response => response.json())
+            .then(data => {
+                // Find the conversation with matching ID
+                const conversation = data.conversations.find(c => c.id === conversationId);
+                
+                if (conversation) {
+                    // Update page with conversation info
+                    const detailsContainer = document.getElementById('conversation-details');
+                    
+                    // Create HTML for conversation details
+                    const detailsHTML = `
+                        <div class="conversation-header">
+                            <div class="conversation-meta">
+                                <h2>${conversation.name}</h2>
+                                <div class="conversation-location-info">
+                                    <i class="fas fa-map-marker-alt"></i> ${conversation.country}, ${conversation.region}
+                                </div>
+                                <div class="conversation-date">
+                                    <i class="fas fa-calendar-alt"></i> ${conversation.date_added.split(' ')[0]}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="conversation-content">
+                            <div class="conversation-photo" id="conversation-photo">
+                                ${conversation.photo_url 
+                                    ? `<img src="${conversation.photo_url.startsWith('http') 
+                                        ? conversation.photo_url 
+                                        : '/static/' + conversation.photo_url}" alt="Photo with ${conversation.name}">`
+                                    : `<div class="no-photo">
+                                        <i class="fas fa-camera"></i>
+                                        <span>No photo available</span>
+                                       </div>`
+                                }
+                            </div>
+                            
+                            <div class="conversation-quote">
+                                <h3>Memorable Quote</h3>
+                                <blockquote>
+                                    <i class="fas fa-quote-left"></i>
+                                    <p>${conversation.quote}</p>
+                                    <i class="fas fa-quote-right"></i>
+                                </blockquote>
+                            </div>
+                        </div>
+                        
+                        <div class="photo-booth-section">
+                            <h3>Create a Memory</h3>
+                            <div id="photo-booth-container" class="photo-booth-container"></div>
+                        </div>
+                        
+                        <div class="conversation-actions">
+                            <a href="/edit-conversation/${conversation.id}" class="button secondary">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <form action="/delete-conversation/${conversation.id}" method="POST" class="inline-form">
+                                <button type="submit" class="button danger" onclick="return confirm('Are you sure you want to delete this conversation?')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        </div>
+                    `;
+                    
+                    detailsContainer.innerHTML = detailsHTML;
+                    
+                    // Initialize map
+                    const map = L.map('conversation-map').setView(conversation.coordinates, 5);
+                    
+                    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                        subdomains: 'abcd',
+                        maxZoom: 19
+                    }).addTo(map);
+                    
+                    // Add marker
+                    L.marker(conversation.coordinates)
+                        .addTo(map)
+                        .bindPopup(`<strong>${conversation.name}</strong><br>${conversation.country}, ${conversation.region}`)
+                        .openPopup();
+                    
+                    // Update page title
+                    document.title = `${conversation.name} from ${conversation.country} - Global Youth Atlas`;
+                    
+                } else {
+                    // Handle conversation not found
+                    const detailsContainer = document.getElementById('conversation-details');
+                    detailsContainer.innerHTML = `
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h2>Conversation Not Found</h2>
+                            <p>The conversation you're looking for could not be found.</p>
+                            <a href="/collection" class="button primary">Back to Collection</a>
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching conversation data:', error);
+                const detailsContainer = document.getElementById('conversation-details');
+                detailsContainer.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h2>Error Loading Conversation</h2>
+                        <p>There was an error loading the conversation data.</p>
+                        <a href="/collection" class="button primary">Back to Collection</a>
+                    </div>
+                `;
+            });
+    </script>
+</body>
+</html>

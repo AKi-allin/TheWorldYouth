@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Collection Book - Global Youth Atlas</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/collection.css') }}">
+    
+    <!-- Leaflet JS (must be after CSS) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+            crossorigin=""></script>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>Global Youth Atlas</h1>
+            <p>Your collection of cultural journeys around the world</p>
+        </div>
+        <nav class="header-nav">
+            <a href="/" class="nav-button"><i class="fas fa-globe"></i> World Map</a>
+            <a href="/add-conversation" class="nav-button primary"><i class="fas fa-plus"></i> Add Conversation</a>
+            <a href="/avatar" class="nav-button"><i class="fas fa-user-circle"></i> My Avatar</a>
+        </nav>
+        <div class="user-avatar" id="header-avatar">
+            <!-- Avatar will be loaded via JavaScript -->
+        </div>
+    </header>
+    
+    <main>
+        <div class="collection-header">
+            <div class="collection-title">
+                <div class="book-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h2>My Cultural Journey Collection</h2>
+            </div>
+            
+            <div class="collection-stats">
+                <div class="stat">
+                    <span>{{ conversations|length }}</span>
+                    <label>Conversations</label>
+                </div>
+                <div class="stat">
+                    <span>{{ conversations|map(attribute='country')|unique|list|length }}</span>
+                    <label>Countries</label>
+                </div>
+                <div class="stat">
+                    <span>{{ conversations|map(attribute='region')|unique|list|length }}</span>
+                    <label>Regions</label>
+                </div>
+            </div>
+            
+            <div class="view-toggle">
+                <button id="card-view-btn" class="view-btn active"><i class="fas fa-th-large"></i> Card View</button>
+                <button id="map-view-btn" class="view-btn"><i class="fas fa-map-marked-alt"></i> Map View</button>
+            </div>
+        </div>
+        
+        <div class="collection-container">
+            <div id="card-view" class="view-container active">
+                {% if conversations %}
+                    <div class="memory-cards">
+                        {% for conversation in conversations %}
+                            <div class="memory-card">
+                                <div class="memory-card-header">
+                                    <div class="memory-location">
+                                        <i class="fas fa-map-marker-alt"></i> {{ conversation.country }}
+                                    </div>
+                                    <div class="memory-date">
+                                        {{ conversation.date_added.split(' ')[0] }}
+                                    </div>
+                                </div>
+                                
+                                <div class="memory-photo">
+                                    {% if conversation.photo_url %}
+                                        <img src="{{ url_for('static', filename=conversation.photo_url) }}" alt="Photo with {{ conversation.name }}">
+                                    {% else %}
+                                        <div class="no-photo">
+                                            <i class="fas fa-camera"></i>
+                                            <span>No photo</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="memory-content">
+                                    <div class="memory-header-with-avatar">
+                                        <h3>{{ conversation.name }}</h3>
+                                        <div class="user-avatar memory-avatar" id="memory-avatar-{{ conversation.id }}"></div>
+                                    </div>
+                                    <div class="memory-quote">
+                                        <i class="fas fa-quote-left"></i>
+                                        <p>{{ conversation.quote }}</p>
+                                        <i class="fas fa-quote-right"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="country-icon" data-country="{{ conversation.country }}">
+                                    <!-- Country icon will be loaded via JavaScript -->
+                                </div>
+                                
+                                <div class="memory-actions">
+                                    <a href="/conversation/{{ conversation.id }}" class="button small">View</a>
+                                    <a href="/edit-conversation/{{ conversation.id }}" class="button small secondary">Edit</a>
+                                    <form action="/delete-conversation/{{ conversation.id }}" method="POST" class="inline-form">
+                                        <button type="submit" class="button small danger" onclick="return confirm('Are you sure you want to delete this conversation?')">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-collection">
+                        <div class="empty-icon">
+                            <i class="fas fa-suitcase-rolling"></i>
+                        </div>
+                        <h3>Your journey hasn't begun yet</h3>
+                        <p>Start adding conversations with people from around the world to build your cultural atlas.</p>
+                        <a href="/add-conversation" class="button primary">Begin Your Journey</a>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div id="map-view" class="view-container">
+                <div id="collection-map"></div>
+            </div>
+        </div>
+        
+        <!-- Missions Section -->
+        <div class="missions-section">
+            <div class="missions-header">
+                <h3><i class="fas fa-tasks"></i> Cultural Missions</h3>
+                <p>Complete these challenges to enhance your global journey</p>
+            </div>
+            
+            <div class="missions-list">
+                <div class="mission-card" id="mission-new-continent">
+                    <div class="mission-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <div class="mission-content">
+                        <h4>New Horizons</h4>
+                        <p>Talk to someone from a continent you've never visited</p>
+                    </div>
+                    <div class="mission-status">
+                        <span class="status-badge incomplete">In Progress</span>
+                    </div>
+                </div>
+                
+                <div class="mission-card" id="mission-three-greetings">
+                    <div class="mission-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div class="mission-content">
+                        <h4>Global Greetings</h4>
+                        <p>Collect 3 different greeting phrases from around the world</p>
+                    </div>
+                    <div class="mission-status">
+                        <span class="status-badge incomplete">In Progress</span>
+                    </div>
+                </div>
+                
+                <div class="mission-card" id="mission-breakfast">
+                    <div class="mission-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="mission-content">
+                        <h4>Breakfast Explorer</h4>
+                        <p>Ask what breakfast looks like in 5 different cultures</p>
+                    </div>
+                    <div class="mission-status">
+                        <span class="status-badge incomplete">In Progress</span>
+                    </div>
+                </div>
+                
+                <div class="mission-card" id="mission-photo-collection">
+                    <div class="mission-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="mission-content">
+                        <h4>Photo Collection</h4>
+                        <p>Take photos with people from 3 different countries</p>
+                    </div>
+                    <div class="mission-status">
+                        <span class="status-badge incomplete">In Progress</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Global Youth Atlas - Explore the world one conversation at a time</p>
+    </footer>
+    
+    <script>
+        // Load user avatars in memory cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedFace = localStorage.getItem('avatarFace') || 'face1';
+            const savedHair = localStorage.getItem('avatarHair') || 'hair1';
+            const savedClothes = localStorage.getItem('avatarClothes') || 'clothes1';
+            
+            // Add avatar to header
+            const headerAvatar = document.getElementById('header-avatar');
+            headerAvatar.innerHTML = `
+                <div class="avatar-display" style="width: 100%; height: 100%;">
+                    <div class="avatar-face ${savedFace}"></div>
+                    <div class="avatar-hair ${savedHair}"></div>
+                    <div class="avatar-clothes ${savedClothes}"></div>
+                </div>
+            `;
+            
+            // Add avatar to each memory card
+            document.querySelectorAll('.memory-avatar').forEach(avatar => {
+                avatar.innerHTML = `
+                    <div class="avatar-display" style="width: 100%; height: 100%;">
+                        <div class="avatar-face ${savedFace}"></div>
+                        <div class="avatar-hair ${savedHair}"></div>
+                        <div class="avatar-clothes ${savedClothes}"></div>
+                    </div>
+                `;
+            });
+            
+            // Load country icons
+            fetch('/static/data/country-icons.json')
+                .then(response => response.json())
+                .then(icons => {
+                    document.querySelectorAll('.country-icon').forEach(iconElement => {
+                        const country = iconElement.getAttribute('data-country');
+                        const iconData = icons[country] || icons['default'];
+                        
+                        iconElement.innerHTML = `
+                            <div class="icon-container" style="background-color: ${iconData.color}">
+                                <span class="icon">${iconData.icon}</span>
+                                <span class="icon-name">${iconData.name}</span>
+                            </div>
+                        `;
+                    });
+                });
+            
+            // View toggle functionality
+            const cardViewBtn = document.getElementById('card-view-btn');
+            const mapViewBtn = document.getElementById('map-view-btn');
+            const cardView = document.getElementById('card-view');
+            const mapView = document.getElementById('map-view');
+            
+            cardViewBtn.addEventListener('click', function() {
+                cardViewBtn.classList.add('active');
+                mapViewBtn.classList.remove('active');
+                cardView.classList.add('active');
+                mapView.classList.remove('active');
+            });
+            
+            mapViewBtn.addEventListener('click', function() {
+                mapViewBtn.classList.add('active');
+                cardViewBtn.classList.remove('active');
+                mapView.classList.add('active');
+                cardView.classList.remove('active');
+                
+                // Initialize map if it hasn't been initialized yet
+                if (!window.collectionMap) {
+                    initCollectionMap();
+                }
+            });
+            
+            // Check mission completion status
+            checkMissionStatus();
+        });
+        
+        function initCollectionMap() {
+            // Create map
+            window.collectionMap = L.map('collection-map').setView([20, 0], 2);
+            
+            // Add tile layer
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(window.collectionMap);
+            
+            // Fetch conversation data
+            fetch('/api/atlas-data')
+                .then(response => response.json())
+                .then(data => {
+                    // Add markers for each conversation
+                    data.conversations.forEach(conversation => {
+                        // Create custom icon
+                        fetch('/static/data/country-icons.json')
+                            .then(response => response.json())
+                            .then(icons => {
+                                const iconData = icons[conversation.country] || icons['default'];
+                                
+                                const customIcon = L.divIcon({
+                                    className: 'custom-map-icon',
+                                    html: `<div class="map-icon" style="background-color: ${iconData.color}">${iconData.icon}</div>`,
+                                    iconSize: [40, 40],
+                                    iconAnchor: [20, 20]
+                                });
+                                
+                                // Add marker
+                                const marker = L.marker(conversation.coordinates, { icon: customIcon })
+                                    .addTo(window.collectionMap);
+                                
+                                // Add popup
+                                marker.bindPopup(`
+                                    <div class="map-popup">
+                                        <h3>${conversation.name}</h3>
+                                        <p class="popup-location">${conversation.country}, ${conversation.region}</p>
+                                        <p class="popup-quote">"${conversation.quote.substring(0, 60)}${conversation.quote.length > 60 ? '...' : ''}"</p>
+                                        <a href="/conversation/${conversation.id}" class="popup-link">View Details</a>
+                                    </div>
+                                `);
+                            });
+                    });
+                });
+        }
+        
+        function checkMissionStatus() {
+            // Fetch conversation data
+            fetch('/api/atlas-data')
+                .then(response => response.json())
+                .then(data => {
+                    const conversations = data.conversations;
+                    
+                    // Check "New Horizons" mission
+                    const continents = new Set(conversations.map(c => c.region));
+                    const newContinentMission = document.getElementById('mission-new-continent');
+                    if (continents.size >= 3) {
+                        newContinentMission.querySelector('.status-badge').className = 'status-badge complete';
+                        newContinentMission.querySelector('.status-badge').textContent = 'Complete';
+                    }
+                    
+                    // Check "Photo Collection" mission
+                    const photosCount = conversations.filter(c => c.photo_url).length;
+                    const photoMission = document.getElementById('mission-photo-collection');
+                    if (photosCount >= 3) {
+                        photoMission.querySelector('.status-badge').className = 'status-badge complete';
+                        photoMission.querySelector('.status-badge').textContent = 'Complete';
+                    } else if (photosCount > 0) {
+                        photoMission.querySelector('.status-badge').textContent = `${photosCount}/3 Complete`;
+                    }
+                    
+                    // For demonstration purposes, randomly complete other missions
+                    if (Math.random() > 0.5) {
+                        document.getElementById('mission-three-greetings').querySelector('.status-badge').className = 'status-badge complete';
+                        document.getElementById('mission-three-greetings').querySelector('.status-badge').textContent = 'Complete';
+                    }
+                    
+                    if (Math.random() > 0.7) {
+                        document.getElementById('mission-breakfast').querySelector('.status-badge').className = 'status-badge complete';
+                        document.getElementById('mission-breakfast').querySelector('.status-badge').textContent = 'Complete';
+                    }
+                });
+        }
+    </script>
+</body>
+</html>

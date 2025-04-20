@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Avatar - Global Youth Atlas</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>Global Youth Atlas</h1>
+            <p>Create your avatar</p>
+        </div>
+        <nav class="header-nav">
+            <a href="/" class="nav-button"><i class="fas fa-globe"></i> World Map</a>
+            <a href="/collection" class="nav-button"><i class="fas fa-book-open"></i> My Collection</a>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="avatar-container">
+            <div class="avatar-preview">
+                <div class="avatar-display">
+                    <div class="avatar-face" id="selected-face"></div>
+                    <div class="avatar-hair" id="selected-hair"></div>
+                    <div class="avatar-clothes" id="selected-clothes"></div>
+                </div>
+                <h3>Your Avatar</h3>
+            </div>
+            
+            <div class="avatar-customization">
+                <div class="customization-section">
+                    <h3>Choose Face</h3>
+                    <div class="option-grid" id="face-options">
+                        <div class="avatar-option selected" data-type="face" data-value="face1">
+                            <div class="avatar-face face1"></div>
+                        </div>
+                        <div class="avatar-option" data-type="face" data-value="face2">
+                            <div class="avatar-face face2"></div>
+                        </div>
+                        <div class="avatar-option" data-type="face" data-value="face3">
+                            <div class="avatar-face face3"></div>
+                        </div>
+                        <div class="avatar-option" data-type="face" data-value="face4">
+                            <div class="avatar-face face4"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="customization-section">
+                    <h3>Choose Hair</h3>
+                    <div class="option-grid" id="hair-options">
+                        <div class="avatar-option selected" data-type="hair" data-value="hair1">
+                            <div class="avatar-hair hair1"></div>
+                        </div>
+                        <div class="avatar-option" data-type="hair" data-value="hair2">
+                            <div class="avatar-hair hair2"></div>
+                        </div>
+                        <div class="avatar-option" data-type="hair" data-value="hair3">
+                            <div class="avatar-hair hair3"></div>
+                        </div>
+                        <div class="avatar-option" data-type="hair" data-value="hair4">
+                            <div class="avatar-hair hair4"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="customization-section">
+                    <h3>Choose Clothes</h3>
+                    <div class="option-grid" id="clothes-options">
+                        <div class="avatar-option selected" data-type="clothes" data-value="clothes1">
+                            <div class="avatar-clothes clothes1"></div>
+                        </div>
+                        <div class="avatar-option" data-type="clothes" data-value="clothes2">
+                            <div class="avatar-clothes clothes2"></div>
+                        </div>
+                        <div class="avatar-option" data-type="clothes" data-value="clothes3">
+                            <div class="avatar-clothes clothes3"></div>
+                        </div>
+                        <div class="avatar-option" data-type="clothes" data-value="clothes4">
+                            <div class="avatar-clothes clothes4"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="avatar-actions">
+                    <button id="save-avatar" class="button primary">Save Avatar</button>
+                    <a href="/" class="button secondary">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Global Youth Atlas - Explore the world one conversation at a time</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved avatar if exists
+            const savedFace = localStorage.getItem('avatarFace') || 'face1';
+            const savedHair = localStorage.getItem('avatarHair') || 'hair1';
+            const savedClothes = localStorage.getItem('avatarClothes') || 'clothes1';
+            
+            // Set initial selections
+            document.querySelector(`[data-type="face"][data-value="${savedFace}"]`).classList.add('selected');
+            document.querySelector(`[data-type="hair"][data-value="${savedHair}"]`).classList.add('selected');
+            document.querySelector(`[data-type="clothes"][data-value="${savedClothes}"]`).classList.add('selected');
+            
+            // Update preview
+            updateAvatarPreview();
+            
+            // Add click handlers for options
+            document.querySelectorAll('.avatar-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    const value = this.getAttribute('data-value');
+                    
+                    // Remove selected class from all options of this type
+                    document.querySelectorAll(`[data-type="${type}"]`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Update preview
+                    updateAvatarPreview();
+                });
+            });
+            
+            // Save avatar button
+            document.getElementById('save-avatar').addEventListener('click', function() {
+                const selectedFace = document.querySelector('[data-type="face"].selected').getAttribute('data-value');
+                const selectedHair = document.querySelector('[data-type="hair"].selected').getAttribute('data-value');
+                const selectedClothes = document.querySelector('[data-type="clothes"].selected').getAttribute('data-value');
+                
+                // Save to localStorage
+                localStorage.setItem('avatarFace', selectedFace);
+                localStorage.setItem('avatarHair', selectedHair);
+                localStorage.setItem('avatarClothes', selectedClothes);
+                
+                // Create a combined avatar value
+                localStorage.setItem('userAvatar', `${selectedFace}-${selectedHair}-${selectedClothes}`);
+                
+                // Show success message
+                alert('Avatar saved successfully!');
+                
+                // Redirect to home
+                window.location.href = '/';
+            });
+            
+            function updateAvatarPreview() {
+                const selectedFace = document.querySelector('[data-type="face"].selected').getAttribute('data-value');
+                const selectedHair = document.querySelector('[data-type="hair"].selected').getAttribute('data-value');
+                const selectedClothes = document.querySelector('[data-type="clothes"].selected').getAttribute('data-value');
+                
+                // Update preview elements
+                document.getElementById('selected-face').className = `avatar-face ${selectedFace}`;
+                document.getElementById('selected-hair').className = `avatar-hair ${selectedHair}`;
+                document.getElementById('selected-clothes').className = `avatar-clothes ${selectedClothes}`;
+            }
+        });
+    </script>
+</body>
+</html>

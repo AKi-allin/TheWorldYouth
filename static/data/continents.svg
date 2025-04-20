@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500">
+  <!-- Ocean Background -->
+  <defs>
+    <pattern id="wave-pattern" width="100" height="20" patternUnits="userSpaceOnUse">
+      <path d="M0,10 Q25,0 50,10 T100,10" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="#3498db"/>
+  <rect width="100%" height="100%" fill="url(#wave-pattern)"/>
+  
+  <!-- North America - More detailed with recognizable shape -->
+  <path d="M170,80 Q190,70 210,75 Q230,65 250,70 
+           Q270,80 280,100 Q290,120 285,140 
+           Q280,160 270,180 Q250,200 230,215 
+           Q210,230 190,240 Q170,245 150,240 
+           Q130,230 115,215 Q100,200 95,180 
+           Q90,160 95,140 Q100,120 115,100 
+           Q130,85 150,80 Q160,78 170,80 
+           M200,120 Q210,110 220,120 Q230,130 220,140 Q210,150 200,140 Q190,130 200,120" 
+           fill="#8fd14f" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Central America - Connection between North and South -->
+  <path d="M220,215 Q230,230 225,245 Q220,260 210,270" 
+        fill="#8fd14f" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- South America - More detailed with recognizable shape -->
+  <path d="M210,270 Q220,280 225,300 
+           Q230,320 225,340 Q220,360 210,380 
+           Q200,400 185,410 Q170,415 155,410 
+           Q140,400 130,380 Q125,360 130,340 
+           Q135,320 145,300 Q160,280 180,270 
+           Q195,265 210,270" 
+           fill="#ff9e7d" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Europe - More detailed with recognizable shape -->
+  <path d="M450,100 Q465,90 480,85 Q495,83 510,85 
+           Q525,90 535,100 Q545,110 550,125 
+           Q552,140 550,155 Q545,170 535,180 
+           Q520,190 505,195 Q490,197 475,195 
+           Q460,190 450,180 Q440,170 435,155 
+           Q433,140 435,125 Q440,110 450,100
+           M480,120 Q485,115 490,120 Q495,125 490,130 Q485,135 480,130 Q475,125 480,120" 
+           fill="#ffda8a" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Africa - More detailed with recognizable shape -->
+  <path d="M450,200 Q465,195 480,197 
+           Q495,200 510,205 Q525,215 535,230 
+           Q545,245 550,260 Q552,275 550,290 
+           Q545,305 535,315 Q520,325 505,330 
+           Q490,332 475,330 Q460,325 450,315 
+           Q440,305 435,290 Q433,275 435,260 
+           Q440,245 450,230 Q455,215 450,200
+           M490,250 Q495,245 500,250 Q505,255 500,260 Q495,265 490,260 Q485,255 490,250" 
+           fill="#d0bbff" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Middle East Connection -->
+  <path d="M535,180 Q545,190 550,205 Q555,220 550,230" 
+        fill="#98e3c3" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Asia - More detailed with recognizable shape -->
+  <path d="M550,125 Q570,110 590,100 
+           Q610,95 630,93 Q650,95 670,100 
+           Q690,110 710,125 Q730,145 745,170 
+           Q755,195 760,220 Q758,245 750,270 
+           Q735,295 715,315 Q690,330 665,335 
+           Q640,337 615,335 Q590,330 570,315 
+           Q555,295 545,270 Q540,245 545,220 
+           Q550,195 560,170 Q565,145 550,125
+           M650,150 Q655,145 660,150 Q665,155 660,160 Q655,165 650,160 Q645,155 650,150
+           M700,200 Q705,195 710,200 Q715,205 710,210 Q705,215 700,210 Q695,205 700,200" 
+           fill="#98e3c3" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Japan Islands -->
+  <path d="M780,170 Q785,165 790,170 Q795,175 790,180 Q785,185 780,180 Q775,175 780,170
+           M775,185 Q780,180 785,185 Q790,190 785,195 Q780,200 775,195 Q770,190 775,185" 
+           fill="#98e3c3" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Indonesia Islands -->
+  <path d="M720,280 Q725,275 730,280 Q735,285 730,290 Q725,295 720,290 Q715,285 720,280
+           M740,285 Q745,280 750,285 Q755,290 750,295 Q745,300 740,295 Q735,290 740,285
+           M760,290 Q765,285 770,290 Q775,295 770,300 Q765,305 760,300 Q755,295 760,290" 
+           fill="#98e3c3" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Australia - More detailed with recognizable shape -->
+  <path d="M780,300 Q795,295 810,297 
+           Q825,300 835,310 Q845,320 850,335 
+           Q848,350 840,360 Q825,370 810,375 
+           Q795,377 780,375 Q765,370 755,360 
+           Q750,350 752,335 Q755,320 765,310 
+           Q775,300 780,300
+           M800,330 Q805,325 810,330 Q815,335 810,340 Q805,345 800,340 Q795,335 800,330" 
+           fill="#ffbad1" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- New Zealand -->
+  <path d="M850,370 Q855,365 860,370 Q865,375 860,380 Q855,385 850,380 Q845,375 850,370
+           M840,385 Q845,380 850,385 Q855,390 850,395 Q845,400 840,395 Q835,390 840,385" 
+           fill="#ffbad1" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Antarctica - More detailed with ice shelf appearance -->
+  <path d="M200,450 Q250,445 300,443 
+           Q350,442 400,443 Q450,445 500,448 
+           Q550,450 600,448 Q650,445 700,443 
+           Q750,442 800,445 Q775,455 725,460 
+           Q675,463 625,465 Q575,466 525,465 
+           Q475,463 425,460 Q375,455 325,450 
+           Q275,447 225,445 Q200,447 200,450" 
+           fill="#c4e0f4" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- UK Islands -->
+  <path d="M430,115 Q435,110 440,115 Q445,120 440,125 Q435,130 430,125 Q425,120 430,115" 
+        fill="#ffda8a" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Madagascar -->
+  <path d="M530,300 Q535,295 540,300 Q545,305 540,310 Q535,315 530,310 Q525,305 530,300" 
+        fill="#d0bbff" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Greenland -->
+  <path d="M350,60 Q365,55 380,60 Q395,70 400,85 Q398,100 390,110 Q375,120 360,115 Q345,105 340,90 Q342,75 350,60" 
+        fill="#c4e0f4" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Compass Rose -->
+  <g transform="translate(900, 80)">
+    <circle cx="0" cy="0" r="20" fill="rgba(255,255,255,0.7)" stroke="#333" stroke-width="1"/>
+    <path d="M0,-15 L5,-5 L0,0 L-5,-5 Z" fill="#e74c3c"/>
+    <path d="M0,15 L-5,5 L0,0 L5,5 Z" fill="#333"/>
+    <path d="M-15,0 L-5,-5 L0,0 L-5,5 Z" fill="#333"/>
+    <path d="M15,0 L5,5 L0,0 L5,-5 Z" fill="#333"/>
+    <text x="0" y="-20" text-anchor="middle" font-size="8" fill="#333">N</text>
+    <text x="0" y="27" text-anchor="middle" font-size="8" fill="#333">S</text>
+    <text x="-22" y="3" text-anchor="middle" font-size="8" fill="#333">W</text>
+    <text x="22" y="3" text-anchor="middle" font-size="8" fill="#333">E</text>
+  </g>
+  
+  <!-- Map Title with Decorative Border -->
+  <g transform="translate(500, 30)">
+    <rect x="-120" y="-20" width="240" height="40" rx="10" ry="10" fill="rgba(255,255,255,0.7)" stroke="#333" stroke-width="1"/>
+    <text x="0" y="5" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">Global Youth Atlas</text>
+    <path d="M-110,-10 L-100,-10" stroke="#e74c3c" stroke-width="2"/>
+    <path d="M100,-10 L110,-10" stroke="#e74c3c" stroke-width="2"/>
+    <path d="M-110,10 L-100,10" stroke="#e74c3c" stroke-width="2"/>
+    <path d="M100,10 L110,10" stroke="#e74c3c" stroke-width="2"/>
+  </g>
+  
+  <!-- Decorative Elements -->
+  <!-- Paper Airplane -->
+  <g transform="translate(850, 150)">
+    <path d="M0,0 L15,5 L0,10 Z" fill="white" stroke="#333" stroke-width="0.5"/>
+    <path d="M0,0 L5,5 L0,10" fill="none" stroke="#333" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Ship -->
+  <g transform="translate(350, 350)">
+    <path d="M-15,0 L15,0 L10,5 L-10,5 Z" fill="#e74c3c" stroke="#333" stroke-width="0.5"/>
+    <path d="M0,-10 L0,0" fill="none" stroke="#333" stroke-width="0.5"/>
+    <path d="M0,-10 L10,0" fill="none" stroke="#333" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Sea Monster (playful) -->
+  <g transform="translate(650, 400)">
+    <path d="M0,0 C5,-5 10,-5 15,0 C20,5 25,5 30,0" fill="none" stroke="#333" stroke-width="1"/>
+    <circle cx="30" cy="-5" r="3" fill="#333"/>
+  </g>
+</svg>

@@ -1,0 +1,107 @@
+{
+  "United States": {
+    "icon": "🗽",
+    "name": "Statue of Liberty",
+    "color": "#3498db"
+  },
+  "Canada": {
+    "icon": "🍁",
+    "name": "Maple Leaf",
+    "color": "#e74c3c"
+  },
+  "Mexico": {
+    "icon": "🌮",
+    "name": "Taco",
+    "color": "#2ecc71"
+  },
+  "Brazil": {
+    "icon": "⚽",
+    "name": "Soccer Ball",
+    "color": "#f1c40f"
+  },
+  "Argentina": {
+    "icon": "🧉",
+    "name": "Mate",
+    "color": "#3498db"
+  },
+  "United Kingdom": {
+    "icon": "☕",
+    "name": "Tea Cup",
+    "color": "#e74c3c"
+  },
+  "France": {
+    "icon": "🗼",
+    "name": "Eiffel Tower",
+    "color": "#3498db"
+  },
+  "Germany": {
+    "icon": "🥨",
+    "name": "Pretzel",
+    "color": "#f39c12"
+  },
+  "Italy": {
+    "icon": "🍕",
+    "name": "Pizza",
+    "color": "#2ecc71"
+  },
+  "Spain": {
+    "icon": "💃",
+    "name": "Flamenco Dancer",
+    "color": "#e74c3c"
+  },
+  "Russia": {
+    "icon": "🏰",
+    "name": "Castle",
+    "color": "#9b59b6"
+  },
+  "China": {
+    "icon": "🐉",
+    "name": "Dragon",
+    "color": "#e74c3c"
+  },
+  "Japan": {
+    "icon": "🍣",
+    "name": "Sushi",
+    "color": "#e67e22"
+  },
+  "South Korea": {
+    "icon": "🎮",
+    "name": "Video Game",
+    "color": "#3498db"
+  },
+  "India": {
+    "icon": "🕌",
+    "name": "Taj Mahal",
+    "color": "#f1c40f"
+  },
+  "Australia": {
+    "icon": "🦘",
+    "name": "Kangaroo",
+    "color": "#2ecc71"
+  },
+  "New Zealand": {
+    "icon": "🥝",
+    "name": "Kiwi",
+    "color": "#27ae60"
+  },
+  "Egypt": {
+    "icon": "🔺",
+    "name": "Pyramid",
+    "color": "#f39c12"
+  },
+  "South Africa": {
+    "icon": "🦁",
+    "name": "Lion",
+    "color": "#f1c40f"
+  },
+  "Nigeria": {
+    "icon": "🥁",
+    "name": "Drum",
+    "color": "#2ecc71"
+  },
+  "default": {
+    "icon": "🌍",
+    "name": "Globe",
+    "color": "#3498db"
+  }
+}

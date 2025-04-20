@@ -1,0 +1,418 @@
+/* Welcome Screen Styles */
+.welcome-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.welcome-modal.visible {
+    opacity: 1;
+}
+
+.welcome-modal.exit {
+    opacity: 0;
+}
+
+.welcome-content {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(30px);
+    opacity: 0;
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-content.animate {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.welcome-title {
+    color: #3498db;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.welcome-title:after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #e74c3c;
+    border-radius: 3px;
+}
+
+.welcome-message {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.welcome-message .highlight {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.welcome-features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+}
+
+.feature i {
+    font-size: 24px;
+    color: #3498db;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.feature:hover i {
+    transform: scale(1.2);
+}
+
+.feature span {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+}
+
+.welcome-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+}
+
+.welcome-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
+}
+
+/* Travel Illustrations */
+.travel-illustrations {
+    position: relative;
+    height: 180px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+/* Globe Animation */
+.welcome-globe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+}
+
+.globe-animation {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    animation: float 3s ease-in-out infinite;
+}
+
+.globe {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 30%, #4facfe 0%, #00f2fe 90%);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(79, 172, 254, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.globe:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M30,20 Q40,10 50,20 Q60,30 70,20" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/><path d="M20,40 Q40,30 60,40 Q80,50 90,40" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/><path d="M10,60 Q30,50 50,60 Q70,70 90,60" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/><path d="M20,80 Q40,70 60,80 Q80,90 90,80" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/></svg>');
+    background-size: cover;
+    opacity: 0.7;
+    animation: rotate 20s linear infinite;
+}
+
+.globe-overlay {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+}
+
+.globe-pin {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #e74c3c;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+    z-index: 2;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Paper Plane Animation */
+.paper-plane-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+
+.paper-plane {
+    position: absolute;
+    width: 30px;
+    height: 20px;
+    z-index: 4;
+}
+
+.plane-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    clip-path: polygon(0 0, 100% 50%, 0 100%, 25% 50%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.plane-wing {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    background-color: #f1f1f1;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    transform: translateY(-50%);
+}
+
+.flight-path {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+
+/* Travel Items */
+.travel-items {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+/* Backpack */
+.backpack {
+    position: relative;
+    width: 50px;
+    height: 60px;
+}
+
+.backpack-body {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 50px;
+    background-color: #e74c3c;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.backpack-pocket {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 15px;
+    background-color: #c0392b;
+    border-radius: 4px;
+}
+
+.backpack-strap {
+    position: absolute;
+    top: 0;
+    width: 6px;
+    height: 30px;
+    background-color: #c0392b;
+    border-radius: 3px;
+}
+
+.backpack-strap.left {
+    left: 8px;
+    transform: rotate(-15deg);
+}
+
+.backpack-strap.right {
+    right: 8px;
+    transform: rotate(15deg);
+}
+
+/* Passport */
+.passport {
+    position: relative;
+    width: 40px;
+    height: 30px;
+    transform: rotate(-5deg);
+}
+
+.passport-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #3498db;
+    border-radius: 3px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.passport-emblem {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #f1c40f;
+    border-radius: 50%;
+}
+
+/* Map */
+.map {
+    position: relative;
+    width: 50px;
+    height: 40px;
+    transform: rotate(5deg);
+}
+
+.map-paper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f9e7c9;
+    border-radius: 3px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.map-fold {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.map-marker {
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    width: 8px;
+    height: 8px;
+    background-color: #e74c3c;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.3); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    .welcome-content {
+        padding: 20px;
+    }
+    
+    .welcome-title {
+        font-size: 24px;
+    }
+    
+    .welcome-message {
+        font-size: 16px;
+    }
+    
+    .feature {
+        width: 100px;
+    }
+    
+    .feature i {
+        font-size: 20px;
+    }
+    
+    .feature span {
+        font-size: 12px;
+    }
+}

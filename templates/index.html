@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Youth Atlas - Collect Conversations Around the World</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}">
+    
+    <!-- Leaflet JS (must be after CSS) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+            crossorigin=""></script>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>Global Youth Atlas</h1>
+            <p>Collect conversations and memories from around the world</p>
+        </div>
+        <nav class="header-nav">
+            <a href="/collection" class="nav-button"><i class="fas fa-book-open"></i> My Collection</a>
+            <a href="/add-conversation" class="nav-button primary"><i class="fas fa-plus"></i> Add Conversation</a>
+            <a href="/avatar" class="nav-button"><i class="fas fa-user-circle"></i> My Avatar</a>
+        </nav>
+        <div class="user-avatar" id="header-avatar">
+            <!-- Avatar will be loaded via JavaScript -->
+        </div>
+    </header>
+    
+    <main>
+        <div class="progress-banner">
+            <div class="progress-info">
+                <h3>Your Atlas Journey</h3>
+                <div class="progress-stats">
+                    <div class="stat">
+                        <span id="regions-count">0</span>
+                        <label>Regions Visited</label>
+                    </div>
+                    <div class="stat">
+                        <span id="conversations-count">0</span>
+                        <label>Conversations</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+        
+        <!-- Conversation Modal -->
+        <div id="conversation-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2 class="modal-title">Conversations in this Region</h2>
+                <div id="conversations-list"></div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Global Youth Atlas - Explore the world one conversation at a time</p>
+    </footer>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/illustrated-map.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/welcome-screen.js') }}"></script>
+    <script>
+        // Load user avatar in header
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerAvatar = document.getElementById('header-avatar');
+            const savedFace = localStorage.getItem('avatarFace') || 'face1';
+            const savedHair = localStorage.getItem('avatarHair') || 'hair1';
+            const savedClothes = localStorage.getItem('avatarClothes') || 'clothes1';
+            
+            headerAvatar.innerHTML = `
+                <div class="avatar-display" style="width: 100%; height: 100%;">
+                    <div class="avatar-face ${savedFace}"></div>
+                    <div class="avatar-hair ${savedHair}"></div>
+                    <div class="avatar-clothes ${savedClothes}"></div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

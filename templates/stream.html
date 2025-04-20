@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream View - World Stream</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>World Stream</h1>
+        </div>
+        <nav class="header-nav">
+            <a href="/" class="back-button">← Back to Map</a>
+            <a href="/admin" class="nav-button">Admin Panel</a>
+        </nav>
+    </header>
+    
+    <main>
+        <div id="stream-container">
+            <div id="stream-info">
+                <div class="stream-header">
+                    <div class="stream-thumbnail" id="stream-thumbnail">
+                        <!-- Thumbnail will be added here via JavaScript -->
+                    </div>
+                    <div class="stream-details">
+                        <h2 id="stream-title">Loading...</h2>
+                        <p id="stream-location">Loading...</p>
+                    </div>
+                </div>
+                <p id="stream-description" class="stream-description">Loading...</p>
+            </div>
+            <div id="video-container">
+                <!-- Video will be embedded here via JavaScript -->
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 World Stream - Prototype</p>
+    </footer>
+    
+    <!-- Custom JS -->
+    <script>
+        // Get stream ID from Flask
+        const streamId = "{{ stream_id }}";
+        
+        // Fetch stream data
+        fetch('/api/streams')
+            .then(response => response.json())
+            .then(data => {
+                // Find the stream with matching ID
+                const stream = data.streams.find(s => s.id === streamId);
+                
+                if (stream) {
+                    // Update page with stream info
+                    document.getElementById('stream-title').textContent = stream.title;
+                    document.getElementById('stream-location').textContent = stream.location;
+                    document.getElementById('stream-description').textContent = stream.description;
+                    document.title = `${stream.title} - World Stream`;
+                    
+                    // Add thumbnail
+                    const thumbnailContainer = document.getElementById('stream-thumbnail');
+                    const thumbnail = document.createElement('img');
+                    thumbnail.src = stream.thumbnail_url;
+                    thumbnail.alt = stream.title;
+                    thumbnailContainer.appendChild(thumbnail);
+                    
+                    // Create and embed video iframe
+                    const videoContainer = document.getElementById('video-container');
+                    const iframe = document.createElement('iframe');
+                    iframe.src = stream.video_url;
+                    iframe.width = '100%';
+                    iframe.height = '100%';
+                    iframe.frameBorder = '0';
+                    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                    iframe.allowFullscreen = true;
+                    
+                    videoContainer.appendChild(iframe);
+                } else {
+                    // Handle stream not found
+                    document.getElementById('stream-title').textContent = 'Stream Not Found';
+                    document.getElementById('stream-location').textContent = '';
+                    document.getElementById('stream-description').textContent = 'The requested stream could not be found.';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching stream data:', error);
+                document.getElementById('stream-title').textContent = 'Error Loading Stream';
+                document.getElementById('stream-location').textContent = '';
+                document.getElementById('stream-description').textContent = 'There was an error loading the stream data.';
+            });
+    </script>
+</body>
+</html>
