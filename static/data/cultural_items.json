@@ -1,0 +1,224 @@
+{
+  "items": [
+    {
+      "id": "item1",
+      "name": "寿司",
+      "name_en": "Sushi",
+      "country": "日本",
+      "country_id": "jp",
+      "description": "日本の伝統的な料理。新鮮な魚と酢飯で作られる。",
+      "emoji": "🍣",
+      "rarity": "common",
+      "category": "food"
+    },
+    {
+      "id": "item2",
+      "name": "着物",
+      "name_en": "Kimono",
+      "country": "日本",
+      "country_id": "jp",
+      "description": "日本の伝統的な衣装。様々な場面で着用される。",
+      "emoji": "👘",
+      "rarity": "rare",
+      "category": "clothing"
+    },
+    {
+      "id": "item3",
+      "name": "タコス",
+      "name_en": "Tacos",
+      "country": "メキシコ",
+      "country_id": "mx",
+      "description": "メキシコの代表的な料理。トルティーヤに具材を包んで食べる。",
+      "emoji": "🌮",
+      "rarity": "common",
+      "category": "food"
+    },
+    {
+      "id": "item4",
+      "name": "自由の女神",
+      "name_en": "Statue of Liberty",
+      "country": "アメリカ",
+      "country_id": "us",
+      "description": "ニューヨークにある有名な像。自由と民主主義の象徴。",
+      "emoji": "🗽",
+      "rarity": "rare",
+      "category": "landmark"
+    },
+    {
+      "id": "item5",
+      "name": "エッフェル塔",
+      "name_en": "Eiffel Tower",
+      "country": "フランス",
+      "country_id": "fr",
+      "description": "パリにある鉄塔。フランスの象徴的な建造物。",
+      "emoji": "🗼",
+      "rarity": "rare",
+      "category": "landmark"
+    },
+    {
+      "id": "item6",
+      "name": "パンダ",
+      "name_en": "Panda",
+      "country": "中国",
+      "country_id": "cn",
+      "description": "中国原産の動物。世界中で愛されている。",
+      "emoji": "🐼",
+      "rarity": "ultra-rare",
+      "category": "animal"
+    },
+    {
+      "id": "item7",
+      "name": "ピザ",
+      "name_en": "Pizza",
+      "country": "イタリア",
+      "country_id": "it",
+      "description": "イタリア発祥の料理。世界中で人気がある。",
+      "emoji": "🍕",
+      "rarity": "common",
+      "category": "food"
+    },
+    {
+      "id": "item8",
+      "name": "カンガルー",
+      "name_en": "Kangaroo",
+      "country": "オーストラリア",
+      "country_id": "au",
+      "description": "オーストラリアに生息する有袋類。跳躍力が高い。",
+      "emoji": "🦘",
+      "rarity": "rare",
+      "category": "animal"
+    },
+    {
+      "id": "item9",
+      "name": "ピラミッド",
+      "name_en": "Pyramid",
+      "country": "エジプト",
+      "country_id": "eg",
+      "description": "古代エジプトの王のための墓。世界の七不思議の一つ。",
+      "emoji": "🔺",
+      "rarity": "ultra-rare",
+      "category": "landmark"
+    },
+    {
+      "id": "item10",
+      "name": "サッカーボール",
+      "name_en": "Soccer Ball",
+      "country": "ブラジル",
+      "country_id": "br",
+      "description": "ブラジルはサッカー大国として知られている。",
+      "emoji": "⚽",
+      "rarity": "common",
+      "category": "sport"
+    },
+    {
+      "id": "item11",
+      "name": "マトリョーシカ",
+      "name_en": "Matryoshka Doll",
+      "country": "ロシア",
+      "country_id": "ru",
+      "description": "ロシアの伝統的な入れ子人形。中に小さな人形が入っている。",
+      "emoji": "👧",
+      "rarity": "rare",
+      "category": "craft"
+    },
+    {
+      "id": "item12",
+      "name": "ケバブ",
+      "name_en": "Kebab",
+      "country": "トルコ",
+      "country_id": "tr",
+      "description": "トルコの代表的な料理。串に刺した肉を焼いたもの。",
+      "emoji": "🍢",
+      "rarity": "common",
+      "category": "food"
+    },
+    {
+      "id": "item13",
+      "name": "ビッグベン",
+      "name_en": "Big Ben",
+      "country": "イギリス",
+      "country_id": "gb",
+      "description": "ロンドンにある時計塔。イギリスの象徴的な建造物。",
+      "emoji": "🕰️",
+      "rarity": "rare",
+      "category": "landmark"
+    },
+    {
+      "id": "item14",
+      "name": "タージマハル",
+      "name_en": "Taj Mahal",
+      "country": "インド",
+      "country_id": "in",
+      "description": "インドにある白大理石の霊廟。世界遺産の一つ。",
+      "emoji": "🏯",
+      "rarity": "ultra-rare",
+      "category": "landmark"
+    },
+    {
+      "id": "item15",
+      "name": "ケーキ",
+      "name_en": "Cake",
+      "country": "フランス",
+      "country_id": "fr",
+      "description": "フランスは洗練されたケーキやお菓子で有名。",
+      "emoji": "🍰",
+      "rarity": "common",
+      "category": "food"
+    },
+    {
+      "id": "item16",
+      "name": "ライオン",
+      "name_en": "Lion",
+      "country": "ケニア",
+      "country_id": "ke",
+      "description": "ケニアのサバンナに生息する動物。百獣の王と呼ばれる。",
+      "emoji": "🦁",
+      "rarity": "rare",
+      "category": "animal"
+    },
+    {
+      "id": "item17",
+      "name": "ホッケー",
+      "name_en": "Hockey",
+      "country": "カナダ",
+      "country_id": "ca",
+      "description": "カナダの国民的スポーツ。氷上で行われる。",
+      "emoji": "🏒",
+      "rarity": "common",
+      "category": "sport"
+    },
+    {
+      "id": "item18",
+      "name": "チョコレート",
+      "name_en": "Chocolate",
+      "country": "スイス",
+      "country_id": "ch",
+      "description": "スイスは高品質なチョコレートで世界的に有名。",
+      "emoji": "🍫",
+      "rarity": "common",
+      "category": "food"
+    },
+    {
+      "id": "item19",
+      "name": "万里の長城",
+      "name_en": "Great Wall",
+      "country": "中国",
+      "country_id": "cn",
+      "description": "中国の巨大な防壁。世界最大の建造物の一つ。",
+      "emoji": "🧱",
+      "rarity": "ultra-rare",
+      "category": "landmark"
+    },
+    {
+      "id": "item20",
+      "name": "コアラ",
+      "name_en": "Koala",
+      "country": "オーストラリア",
+      "country_id": "au",
+      "description": "オーストラリアに生息する有袋類。ユーカリの葉を食べる。",
+      "emoji": "🐨",
+      "rarity": "rare",
+      "category": "animal"
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "badges": [
+    {
+      "id": "badge1",
+      "name": "アジア探検家",
+      "description": "アジアの国々を探検しよう",
+      "category": "region",
+      "category_ja": "地域",
+      "icon": "🧭",
+      "requirements": [
+        { "id": "req1", "description": "日本の会話を記録する", "completed": false },
+        { "id": "req2", "description": "中国の会話を記録する", "completed": false },
+        { "id": "req3", "description": "韓国の会話を記録する", "completed": false },
+        { "id": "req4", "description": "インドの会話を記録する", "completed": false },
+        { "id": "req5", "description": "タイの会話を記録する", "completed": false }
+      ],
+      "progress": 0,
+      "total": 5,
+      "acquired": false,
+      "acquired_at": null
+    },
+    {
+      "id": "badge2",
+      "name": "世界の料理通",
+      "description": "世界中の料理に関する知識を集めよう",
+      "category": "collection",
+      "category_ja": "コレクション",
+      "icon": "🍲",
+      "requirements": [
+        { "id": "req1", "description": "寿司（日本）のアイテムを獲得する", "completed": false },
+        { "id": "req2", "description": "ピザ（イタリア）のアイテムを獲得する", "completed": false },
+        { "id": "req3", "description": "タコス（メキシコ）のアイテムを獲得する", "completed": false },
+        { "id": "req4", "description": "クロワッサン（フランス）のアイテムを獲得する", "completed": false },
+        { "id": "req5", "description": "カレー（インド）のアイテムを獲得する", "completed": false }
+      ],
+      "progress": 0,
+      "total": 5,
+      "acquired": false,
+      "acquired_at": null
+    },
+    {
+      "id": "badge3",
+      "name": "5大陸コンプリート",
+      "description": "5大陸すべてから会話を記録しよう",
+      "category": "region",
+      "category_ja": "地域",
+      "icon": "🌍",
+      "requirements": [
+        { "id": "req1", "description": "アジアの会話を記録する", "completed": false },
+        { "id": "req2", "description": "ヨーロッパの会話を記録する", "completed": false },
+        { "id": "req3", "description": "北アメリカの会話を記録する", "completed": false },
+        { "id": "req4", "description": "南アメリカの会話を記録する", "completed": false },
+        { "id": "req5", "description": "アフリカの会話を記録する", "completed": false },
+        { "id": "req6", "description": "オセアニアの会話を記録する", "completed": false }
+      ],
+      "progress": 0,
+      "total": 6,
+      "acquired": false,
+      "acquired_at": null
+    },
+    {
+      "id": "badge4",
+      "name": "文化ガチャマスター",
+      "description": "文化ガチャを極めよう",
+      "category": "activity",
+      "category_ja": "活動",
+      "icon": "🎁",
+      "requirements": [
+        { "id": "req1", "description": "文化ガチャを10回引く", "completed": false },
+        { "id": "req2", "description": "文化ガチャを50回引く", "completed": false },
+        { "id": "req3", "description": "文化ガチャを100回引く", "completed": false },
+        { "id": "req4", "description": "レアアイテムを5つ獲得する", "completed": false },
+        { "id": "req5", "description": "超レアアイテムを1つ獲得する", "completed": false }
+      ],
+      "progress": 0,
+      "total": 5,
+      "acquired": false,
+      "acquired_at": null
+    },
+    {
+      "id": "badge5",
+      "name": "冒険の始まり",
+      "description": "世界ユースアトラスの冒険を始めよう",
+      "category": "special",
+      "category_ja": "特別",
+      "icon": "🚀",
+      "requirements": [
+        { "id": "req1", "description": "アプリを初めて起動する", "completed": false },
+        { "id": "req2", "description": "アバターを作成する", "completed": false },
+        { "id": "req3", "description": "最初の会話を記録する", "completed": false }
+      ],
+      "progress": 0,
+      "total": 3,
+      "acquired": false,
+      "acquired_at": null
+    },
+    {
+      "id": "badge6",
+      "name": "推し国マスター",
+      "description": "推し国を登録して特典を獲得しよう",
+      "category": "activity",
+      "category_ja": "活動",
+      "icon": "⭐",
+      "requirements": [
+        { "id": "req1", "description": "推し国を1つ登録する", "completed": false },
+        { "id": "req2", "description": "推し国の文化アイテムを3つ獲得する", "completed": false },
+        { "id": "req3", "description": "推し国の会話を記録する", "completed": false }
+      ],
+      "progress": 0,
+      "total": 3,
+      "acquired": false,
+      "acquired_at": null
+    },
+    {
+      "id": "badge7",
+      "name": "コレクター",
+      "description": "文化アイテムを集めよう",
+      "category": "collection",
+      "category_ja": "コレクション",
+      "icon": "🧩",
+      "requirements": [
+        { "id": "req1", "description": "文化アイテムを10個獲得する", "completed": false },
+        { "id": "req2", "description": "文化アイテムを25個獲得する", "completed": false },
+        { "id": "req3", "description": "文化アイテムを50個獲得する", "completed": false }
+      ],
+      "progress": 0,
+      "total": 3,
+      "acquired": false,
+      "acquired_at": null
+    },
+    {
+      "id": "badge8",
+      "name": "ミッションマスター",
+      "description": "ミッションをクリアしよう",
+      "category": "activity",
+      "category_ja": "活動",
+      "icon": "📋",
+      "requirements": [
+        { "id": "req1", "description": "ミッションを5つクリアする", "completed": false },
+        { "id": "req2", "description": "ミッションを15つクリアする", "completed": false },
+        { "id": "req3", "description": "ミッションを30つクリアする", "completed": false }
+      ],
+      "progress": 0,
+      "total": 3,
+      "acquired": false,
+      "acquired_at": null
+    },
+    {
+      "id": "badge9",
+      "name": "世界旅行者",
+      "description": "世界中の会話を記録しよう",
+      "category": "region",
+      "category_ja": "地域",
+      "icon": "✈️",
+      "requirements": [
+        { "id": "req1", "description": "10カ国の会話を記録する", "completed": false },
+        { "id": "req2", "description": "25カ国の会話を記録する", "completed": false },
+        { "id": "req3", "description": "50カ国の会話を記録する", "completed": false }
+      ],
+      "progress": 0,
+      "total": 3,
+      "acquired": false,
+      "acquired_at": null
+    },
+    {
+      "id": "badge10",
+      "name": "文化大使",
+      "description": "世界ユースアトラスの達人になろう",
+      "category": "special",
+      "category_ja": "特別",
+      "icon": "👑",
+      "requirements": [
+        { "id": "req1", "description": "すべての地域バッジを獲得する", "completed": false },
+        { "id": "req2", "description": "すべてのコレクションバッジを獲得する", "completed": false },
+        { "id": "req3", "description": "すべての活動バッジを獲得する", "completed": false }
+      ],
+      "progress": 0,
+      "total": 3,
+      "acquired": false,
+      "acquired_at": null
+    }
+  ]
+}

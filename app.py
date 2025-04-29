@@ -21,6 +21,34 @@ def ensure_atlas_file():
             json.dump({"conversations": [], "visited_regions": []}, f)
     return data_file
 
+def ensure_cultural_items_file():
+    data_file = os.path.join('static', 'data', 'cultural_items.json')
+    if not os.path.exists(data_file):
+        with open(data_file, 'w') as f:
+            json.dump({"items": []}, f)
+    return data_file
+
+def ensure_user_items_file():
+    data_file = os.path.join('static', 'data', 'user_items.json')
+    if not os.path.exists(data_file):
+        with open(data_file, 'w') as f:
+            json.dump({"user_items": []}, f)
+    return data_file
+
+def ensure_badges_file():
+    data_file = os.path.join('static', 'data', 'badges.json')
+    if not os.path.exists(data_file):
+        with open(data_file, 'w') as f:
+            json.dump({"badges": []}, f)
+    return data_file
+
+def ensure_favorite_countries_file():
+    data_file = os.path.join('static', 'data', 'favorite_countries.json')
+    if not os.path.exists(data_file):
+        with open(data_file, 'w') as f:
+            json.dump({"favorites": []}, f)
+    return data_file
+
 def load_atlas_data():
     data_file = ensure_atlas_file()
     with open(data_file, 'r') as f:
@@ -28,6 +56,46 @@ def load_atlas_data():
 
 def save_atlas_data(data):
     data_file = ensure_atlas_file()
+    with open(data_file, 'w') as f:
+        json.dump(data, f, indent=2)
+
+def load_cultural_items():
+    data_file = ensure_cultural_items_file()
+    with open(data_file, 'r') as f:
+        return json.load(f)
+
+def save_cultural_items(data):
+    data_file = ensure_cultural_items_file()
+    with open(data_file, 'w') as f:
+        json.dump(data, f, indent=2)
+
+def load_user_items():
+    data_file = ensure_user_items_file()
+    with open(data_file, 'r') as f:
+        return json.load(f)
+
+def save_user_items(data):
+    data_file = ensure_user_items_file()
+    with open(data_file, 'w') as f:
+        json.dump(data, f, indent=2)
+
+def load_badges():
+    data_file = ensure_badges_file()
+    with open(data_file, 'r') as f:
+        return json.load(f)
+
+def save_badges(data):
+    data_file = ensure_badges_file()
+    with open(data_file, 'w') as f:
+        json.dump(data, f, indent=2)
+
+def load_favorite_countries():
+    data_file = ensure_favorite_countries_file()
+    with open(data_file, 'r') as f:
+        return json.load(f)
+
+def save_favorite_countries(data):
+    data_file = ensure_favorite_countries_file()
     with open(data_file, 'w') as f:
         json.dump(data, f, indent=2)
 
@@ -158,6 +226,83 @@ def delete_conversation(conversation_id):
     save_atlas_data(atlas_data)
     
     return redirect(url_for('collection'))
+
+
+@app.route('/gacha')
+def gacha():
+    return render_template('gacha.html')
+
+@app.route('/api/cultural-items', methods=['GET'])
+def get_cultural_items():
+    cultural_items = load_cultural_items()
+    return jsonify(cultural_items)
+
+@app.route('/api/user-items', methods=['GET'])
+def get_user_items():
+    user_items = load_user_items()
+    return jsonify(user_items)
+
+@app.route('/api/add-user-item', methods=['POST'])
+def add_user_item():
+    data = request.json
+    user_items = load_user_items()
+    
+    new_item = {
+        'id': str(uuid.uuid4())[:8],
+        'item_id': data['item_id'],
+        'acquired_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'equipped': False
+    }
+    
+    user_items['user_items'].append(new_item)
+    save_user_items(user_items)
+    
+    return jsonify({'success': True, 'item': new_item})
+
+@app.route('/api/badges', methods=['GET'])
+def get_badges():
+    badges = load_badges()
+    return jsonify(badges)
+
+@app.route('/api/user-badges', methods=['GET'])
+def get_user_badges():
+    badges = load_badges()
+    return jsonify(badges)
+
+@app.route('/api/favorite-countries', methods=['GET'])
+def get_favorite_countries():
+    favorites = load_favorite_countries()
+    return jsonify(favorites)
+
+@app.route('/api/set-favorite-country', methods=['POST'])
+def set_favorite_country():
+    data = request.json
+    favorites = load_favorite_countries()
+    
+    existing = next((f for f in favorites['favorites'] if f['country_id'] == data['country_id']), None)
+    
+    if existing:
+        existing['rank'] = data['rank']
+    else:
+        new_favorite = {
+            'id': str(uuid.uuid4())[:8],
+            'country_id': data['country_id'],
+            'rank': data['rank'],
+            'set_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        }
+        favorites['favorites'].append(new_favorite)
+    
+    save_favorite_countries(favorites)
+    
+    return jsonify({'success': True})
+
+@app.route('/favorite-countries')
+def favorite_countries():
+    return render_template('favorite_countries.html')
+
+@app.route('/badges')
+def badges():
+    return render_template('badges.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)

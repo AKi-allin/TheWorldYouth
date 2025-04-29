@@ -1,0 +1,478 @@
+/* Favorite Countries Page Styles */
+body {
+    font-family: 'Noto Sans JP', 'Poppins', sans-serif;
+}
+
+.favorite-countries-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.favorite-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.favorite-header h2 {
+    font-size: 28px;
+    color: #f1c40f;
+    margin-bottom: 10px;
+}
+
+.favorite-header p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Current Favorites */
+.current-favorites {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.current-favorites h3 {
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 15px 0;
+}
+
+.favorites-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.favorite-slot {
+    flex: 1;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    position: relative;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.favorite-slot:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.rank-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f1c40f;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.country-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    text-align: center;
+}
+
+.country-placeholder i {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.country-placeholder span {
+    font-size: 14px;
+}
+
+.country-selected {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.country-flag {
+    font-size: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.country-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.country-region {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+
+.remove-favorite {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.remove-favorite:hover {
+    color: #e74c3c;
+}
+
+/* Country Selection */
+.country-selection {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.country-selection h3 {
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 15px 0;
+}
+
+.search-container {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#country-search {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+}
+
+#search-button {
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.region-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.region-tab {
+    padding: 8px 15px;
+    background-color: #f8f9fa;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.region-tab:hover {
+    background-color: #e9ecef;
+}
+
+.region-tab.active {
+    background-color: #3498db;
+    color: white;
+}
+
+.countries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    position: relative;
+}
+
+.loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #999;
+}
+
+.loading-indicator i {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.country-card {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.country-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.country-card-flag {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.country-card-name {
+    font-size: 14px;
+    text-align: center;
+    color: #333;
+}
+
+/* Favorite Benefits */
+.favorite-benefits {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.favorite-benefits h3 {
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 15px 0;
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.benefits-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.benefits-list li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.benefits-list i {
+    font-size: 24px;
+    color: #f1c40f;
+    margin-right: 15px;
+}
+
+.benefit-info h4 {
+    font-size: 16px;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.benefit-info p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+/* Country Selection Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+}
+
+.modal-title {
+    font-size: 22px;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.modal-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin: 0 0 20px 0;
+}
+
+.country-details {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.country-flag {
+    font-size: 60px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.country-info {
+    flex: 1;
+}
+
+.country-info h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.country-info p {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 10px 0;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-actions button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-actions button:first-child {
+    margin-right: 10px;
+}
+
+.button.primary {
+    background-color: #3498db;
+    color: white;
+    border: none;
+}
+
+.button.secondary {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .favorites-list {
+        flex-direction: column;
+    }
+    
+    .favorite-slot {
+        min-height: 120px;
+    }
+    
+    .region-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 10px;
+    }
+    
+    .region-tab {
+        flex: 0 0 auto;
+    }
+    
+    .countries-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    
+    .country-details {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .country-flag {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .favorite-countries-container {
+        padding: 10px;
+    }
+    
+    .favorite-header h2 {
+        font-size: 24px;
+    }
+    
+    .countries-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .modal-actions button:first-child {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}

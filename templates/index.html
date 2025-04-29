@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Youth Atlas - Collect Conversations Around the World</title>
+    <title>世界ユースアトラス - 世界中の会話を集めよう</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,6 +21,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mission.css') }}">
     
     <!-- Leaflet JS (must be after CSS) -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
@@ -30,13 +31,16 @@
 <body>
     <header class="app-header">
         <div class="header-content">
-            <h1>Global Youth Atlas</h1>
-            <p>Collect conversations and memories from around the world</p>
+            <h1>世界ユースアトラス</h1>
+            <p>世界中の会話と思い出を集めよう</p>
         </div>
         <nav class="header-nav">
-            <a href="/collection" class="nav-button"><i class="fas fa-book-open"></i> My Collection</a>
-            <a href="/add-conversation" class="nav-button primary"><i class="fas fa-plus"></i> Add Conversation</a>
-            <a href="/avatar" class="nav-button"><i class="fas fa-user-circle"></i> My Avatar</a>
+            <a href="/collection" class="nav-button"><i class="fas fa-book-open"></i> コレクション</a>
+            <a href="/gacha" class="nav-button"><i class="fas fa-gift"></i> ガチャ</a>
+            <a href="/favorite-countries" class="nav-button"><i class="fas fa-star"></i> 推し国</a>
+            <a href="/badges" class="nav-button"><i class="fas fa-medal"></i> 称号バッジ</a>
+            <a href="/add-conversation" class="nav-button primary"><i class="fas fa-plus"></i> 会話を追加</a>
+            <a href="/avatar" class="nav-button"><i class="fas fa-user-circle"></i> アバター</a>
         </nav>
         <div class="user-avatar" id="header-avatar">
             <!-- Avatar will be loaded via JavaScript -->
@@ -46,15 +50,15 @@
     <main>
         <div class="progress-banner">
             <div class="progress-info">
-                <h3>Your Atlas Journey</h3>
+                <h3>あなたの冒険</h3>
                 <div class="progress-stats">
                     <div class="stat">
                         <span id="regions-count">0</span>
-                        <label>Regions Visited</label>
+                        <label>訪れた地域</label>
                     </div>
                     <div class="stat">
                         <span id="conversations-count">0</span>
-                        <label>Conversations</label>
+                        <label>会話数</label>
                     </div>
                 </div>
             </div>
@@ -64,18 +68,64 @@
             <div id="map"></div>
         </div>
         
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="welcome-screen">
+            <div class="welcome-content">
+                <div class="welcome-image">
+                    <img src="{{ url_for('static', filename='images/globe-illustration.svg') }}" alt="世界地図イラスト" onerror="this.src='https://via.placeholder.com/300x300?text=地球儀イラスト'">
+                </div>
+                <h2>世界ユース百科事典を作ろう！</h2>
+                <p>あなたの国を代表してみませんか？</p>
+                <button id="start-journey" class="button primary">冒険を始める</button>
+            </div>
+        </div>
+        
         <!-- Conversation Modal -->
         <div id="conversation-modal" class="modal">
             <div class="modal-content">
                 <span class="close-button">&times;</span>
-                <h2 class="modal-title">Conversations in this Region</h2>
+                <h2 class="modal-title">この地域の会話</h2>
                 <div id="conversations-list"></div>
+            </div>
+        </div>
+        
+        <!-- Mission Panel -->
+        <div class="mission-panel">
+            <div class="mission-header">
+                <h3><i class="fas fa-tasks"></i> ミッション</h3>
+                <button class="toggle-mission-panel"><i class="fas fa-chevron-down"></i></button>
+            </div>
+            <div class="mission-content">
+                <div class="mission-item">
+                    <div class="mission-icon"><i class="fas fa-globe-asia"></i></div>
+                    <div class="mission-info">
+                        <h4>アジアの友達を見つけよう</h4>
+                        <div class="mission-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <span class="progress-text">0/1</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mission-item">
+                    <div class="mission-icon"><i class="fas fa-utensils"></i></div>
+                    <div class="mission-info">
+                        <h4>3つの国の食べ物について聞いてみよう</h4>
+                        <div class="mission-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <span class="progress-text">0/3</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
     
     <footer>
-        <p>&copy; 2025 Global Youth Atlas - Explore the world one conversation at a time</p>
+        <p>&copy; 2025 世界ユースアトラス - 世界を楽しく知る冒険</p>
     </footer>
     
     <!-- Custom JS -->
@@ -96,6 +146,27 @@
                     <div class="avatar-clothes ${savedClothes}"></div>
                 </div>
             `;
+            
+            // Update stats
+            fetch('/api/atlas-data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('regions-count').textContent = data.visited_regions.length;
+                    document.getElementById('conversations-count').textContent = data.conversations.length;
+                })
+                .catch(error => console.error('Error fetching atlas data:', error));
+                
+            // Toggle mission panel
+            const toggleButton = document.querySelector('.toggle-mission-panel');
+            const missionContent = document.querySelector('.mission-content');
+            
+            if (toggleButton && missionContent) {
+                toggleButton.addEventListener('click', function() {
+                    missionContent.classList.toggle('collapsed');
+                    this.querySelector('i').classList.toggle('fa-chevron-down');
+                    this.querySelector('i').classList.toggle('fa-chevron-up');
+                });
+            }
         });
     </script>
 </body>

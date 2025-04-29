@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>推し国登録 - 世界ユースアトラス</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/favorite_countries.css') }}">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>世界ユースアトラス</h1>
+            <p>世界の文化を集めよう！</p>
+        </div>
+        <nav class="header-nav">
+            <a href="/" class="nav-button"><i class="fas fa-globe"></i> 世界地図</a>
+            <a href="/collection" class="nav-button"><i class="fas fa-book-open"></i> コレクション</a>
+            <a href="/gacha" class="nav-button"><i class="fas fa-gift"></i> ガチャ</a>
+            <a href="/avatar" class="nav-button"><i class="fas fa-user-circle"></i> アバター</a>
+        </nav>
+        <div class="user-avatar" id="header-avatar">
+            <!-- Avatar will be loaded via JavaScript -->
+        </div>
+    </header>
+    
+    <main>
+        <div class="favorite-countries-container">
+            <div class="favorite-header">
+                <h2><i class="fas fa-star"></i> 推し国登録</h2>
+                <p>あなたのお気に入りの国を登録しよう！（最大3つまで）</p>
+            </div>
+            
+            <div class="current-favorites">
+                <h3>現在の推し国</h3>
+                <div class="favorites-list">
+                    <div class="favorite-slot" data-rank="1">
+                        <div class="rank-badge">1位</div>
+                        <div class="country-placeholder">
+                            <i class="fas fa-plus"></i>
+                            <span>推し国を選ぶ</span>
+                        </div>
+                    </div>
+                    <div class="favorite-slot" data-rank="2">
+                        <div class="rank-badge">2位</div>
+                        <div class="country-placeholder">
+                            <i class="fas fa-plus"></i>
+                            <span>推し国を選ぶ</span>
+                        </div>
+                    </div>
+                    <div class="favorite-slot" data-rank="3">
+                        <div class="rank-badge">3位</div>
+                        <div class="country-placeholder">
+                            <i class="fas fa-plus"></i>
+                            <span>推し国を選ぶ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="country-selection">
+                <h3>国を選ぶ</h3>
+                <div class="search-container">
+                    <input type="text" id="country-search" placeholder="国名を検索...">
+                    <button id="search-button"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="region-tabs">
+                    <button class="region-tab active" data-region="all">すべて</button>
+                    <button class="region-tab" data-region="asia">アジア</button>
+                    <button class="region-tab" data-region="europe">ヨーロッパ</button>
+                    <button class="region-tab" data-region="north-america">北米</button>
+                    <button class="region-tab" data-region="south-america">南米</button>
+                    <button class="region-tab" data-region="africa">アフリカ</button>
+                    <button class="region-tab" data-region="oceania">オセアニア</button>
+                </div>
+                
+                <div class="countries-grid">
+                    <!-- Countries will be loaded here -->
+                    <div class="loading-indicator">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>国データを読み込み中...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="favorite-benefits">
+                <h3>推し国の特典</h3>
+                <ul class="benefits-list">
+                    <li>
+                        <i class="fas fa-gift"></i>
+                        <div class="benefit-info">
+                            <h4>ガチャ確率アップ</h4>
+                            <p>推し国の文化アイテムが出やすくなります</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-medal"></i>
+                        <div class="benefit-info">
+                            <h4>特別バッジ</h4>
+                            <p>推し国に関連するバッジを獲得できます</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-users"></i>
+                        <div class="benefit-info">
+                            <h4>同じ推し国のユーザー</h4>
+                            <p>同じ推し国を持つユーザーと交流できます</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 世界ユースアトラス - 世界を楽しく知る冒険</p>
+    </footer>
+    
+    <!-- Country Selection Modal -->
+    <div id="country-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="modal-title">推し国を選ぶ</h2>
+            <p class="modal-subtitle">ランク <span id="selected-rank">1</span>位 の推し国を選んでください</p>
+            
+            <div class="country-details">
+                <div class="country-flag">
+                    <!-- Flag will be loaded here -->
+                </div>
+                <div class="country-info">
+                    <h3 id="country-name">国名</h3>
+                    <p id="country-region">地域</p>
+                    <p id="country-description">この国についての説明がここに表示されます。</p>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button id="confirm-country" class="button primary">
+                    <i class="fas fa-check"></i> この国を選ぶ
+                </button>
+                <button id="cancel-selection" class="button secondary">
+                    <i class="fas fa-times"></i> キャンセル
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/favorite_countries.js') }}"></script>
+    <script>
+        // Load user avatar in header
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerAvatar = document.getElementById('header-avatar');
+            const savedFace = localStorage.getItem('avatarFace') || 'face1';
+            const savedHair = localStorage.getItem('avatarHair') || 'hair1';
+            const savedClothes = localStorage.getItem('avatarClothes') || 'clothes1';
+            
+            headerAvatar.innerHTML = `
+                <div class="avatar-display" style="width: 100%; height: 100%;">
+                    <div class="avatar-face ${savedFace}"></div>
+                    <div class="avatar-hair ${savedHair}"></div>
+                    <div class="avatar-clothes ${savedClothes}"></div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

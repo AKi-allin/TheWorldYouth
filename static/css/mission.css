@@ -1,0 +1,145 @@
+/* Mission Panel Styles */
+.mission-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index: 900;
+    transition: all 0.3s ease;
+}
+
+.mission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #9b59b6;
+    color: white;
+}
+
+.mission-header h3 {
+    margin: 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.mission-header h3 i {
+    margin-right: 8px;
+}
+
+.toggle-mission-panel {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+}
+
+.mission-content {
+    padding: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    transition: max-height 0.3s ease;
+}
+
+.mission-content.collapsed {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.mission-item {
+    display: flex;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.mission-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.mission-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: #9b59b6;
+    font-size: 18px;
+}
+
+.mission-info {
+    flex: 1;
+}
+
+.mission-info h4 {
+    font-size: 14px;
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.mission-progress {
+    width: 100%;
+}
+
+.progress-bar {
+    height: 6px;
+    background-color: #e9ecef;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #9b59b6;
+    border-radius: 3px;
+}
+
+.progress-text {
+    font-size: 10px;
+    color: #666;
+    text-align: right;
+}
+
+.mission-complete {
+    background-color: #f0fff4;
+}
+
+.mission-complete .mission-icon {
+    color: #27ae60;
+}
+
+.mission-complete .progress-fill {
+    background-color: #27ae60;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .mission-panel {
+        width: 250px;
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mission-panel {
+        width: calc(100% - 20px);
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+    }
+}

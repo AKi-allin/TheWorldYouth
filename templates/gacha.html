@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文化ガチャ - 世界ユースアトラス</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gacha.css') }}">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>世界ユースアトラス</h1>
+            <p>世界の文化を集めよう！</p>
+        </div>
+        <nav class="header-nav">
+            <a href="/" class="nav-button"><i class="fas fa-globe"></i> 世界地図</a>
+            <a href="/collection" class="nav-button"><i class="fas fa-book-open"></i> コレクション</a>
+            <a href="/avatar" class="nav-button"><i class="fas fa-user-circle"></i> アバター</a>
+        </nav>
+        <div class="user-avatar" id="header-avatar">
+            <!-- Avatar will be loaded via JavaScript -->
+        </div>
+    </header>
+    
+    <main>
+        <div class="gacha-container">
+            <div class="gacha-header">
+                <h2><i class="fas fa-gift"></i> 文化ガチャ</h2>
+                <p>世界の文化アイテムを集めよう！</p>
+            </div>
+            
+            <div class="gacha-machine">
+                <div class="gacha-display">
+                    <div class="gacha-globe">
+                        <div class="globe-inner">
+                            <div class="globe-items">
+                                <!-- Items will be animated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gacha-controls">
+                    <div class="gacha-info">
+                        <div class="daily-gacha">
+                            <h3>今日の無料ガチャ</h3>
+                            <p>残り回数: <span id="daily-pulls">1</span>/1</p>
+                        </div>
+                        <div class="coin-balance">
+                            <i class="fas fa-coins"></i> <span id="coin-amount">100</span>
+                        </div>
+                    </div>
+                    
+                    <button id="pull-gacha" class="gacha-button primary">
+                        <i class="fas fa-random"></i> ガチャを回す！
+                    </button>
+                    
+                    <div class="gacha-options">
+                        <button id="world-gacha" class="gacha-option active">
+                            <i class="fas fa-globe"></i> 世界ガチャ
+                            <span class="cost">50 <i class="fas fa-coins"></i></span>
+                        </button>
+                        <button id="favorite-gacha" class="gacha-option">
+                            <i class="fas fa-star"></i> 推し国ガチャ
+                            <span class="cost">70 <i class="fas fa-coins"></i></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gacha-result" style="display: none;">
+                <div class="result-container">
+                    <div class="result-header">
+                        <h3>ガチャ結果</h3>
+                        <button class="close-result"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="item-reveal">
+                        <div class="item-card">
+                            <div class="item-rarity">
+                                <span class="rarity-badge">レア</span>
+                            </div>
+                            <div class="item-image">
+                                <!-- Item image will be loaded here -->
+                            </div>
+                            <div class="item-info">
+                                <h4 class="item-name">アイテム名</h4>
+                                <p class="item-country">国名</p>
+                                <p class="item-description">アイテムの説明文がここに表示されます。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <button class="button primary add-to-collection">
+                            <i class="fas fa-plus"></i> コレクションに追加
+                        </button>
+                        <button class="button secondary try-again">
+                            <i class="fas fa-redo"></i> もう一度引く
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="collection-preview">
+                <h3>最近獲得したアイテム</h3>
+                <div class="recent-items">
+                    <p class="empty-message">まだアイテムがありません。ガチャを引いてみましょう！</p>
+                    <!-- Recent items will be loaded here -->
+                </div>
+                <a href="/collection" class="view-all-link">
+                    <i class="fas fa-book-open"></i> コレクション全体を見る
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 世界ユースアトラス - 世界を楽しく知る冒険</p>
+    </footer>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/gacha.js') }}"></script>
+    <script>
+        // Load user avatar in header
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerAvatar = document.getElementById('header-avatar');
+            const savedFace = localStorage.getItem('avatarFace') || 'face1';
+            const savedHair = localStorage.getItem('avatarHair') || 'hair1';
+            const savedClothes = localStorage.getItem('avatarClothes') || 'clothes1';
+            
+            headerAvatar.innerHTML = `
+                <div class="avatar-display" style="width: 100%; height: 100%;">
+                    <div class="avatar-face ${savedFace}"></div>
+                    <div class="avatar-hair ${savedHair}"></div>
+                    <div class="avatar-clothes ${savedClothes}"></div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
