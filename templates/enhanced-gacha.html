@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文化ガチャ - 世界ユースアトラス</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/enhanced-gacha.css') }}">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>世界ユースアトラス</h1>
+            <p>世界の文化を集めよう！</p>
+        </div>
+        <nav class="header-nav">
+            <a href="/" class="nav-button"><i class="fas fa-globe"></i> 世界地図</a>
+            <a href="/collection" class="nav-button"><i class="fas fa-book-open"></i> コレクション</a>
+            <a href="/gacha" class="nav-button active"><i class="fas fa-gift"></i> ガチャ</a>
+            <a href="/favorite-countries" class="nav-button"><i class="fas fa-star"></i> 推し国</a>
+            <a href="/badges" class="nav-button"><i class="fas fa-medal"></i> 称号バッジ</a>
+            <a href="/avatar" class="nav-button"><i class="fas fa-user-circle"></i> アバター</a>
+        </nav>
+        <div class="user-avatar" id="header-avatar">
+            <!-- Avatar will be loaded via JavaScript -->
+        </div>
+    </header>
+    
+    <main>
+        <div class="gacha-container">
+            <div class="gacha-header">
+                <h2><i class="fas fa-gift"></i> 文化ガチャ</h2>
+                <p>世界の文化アイテムを集めよう！</p>
+            </div>
+            
+            <div class="gacha-machine-container">
+                <!-- Enhanced gacha machine will be loaded via JavaScript -->
+            </div>
+            
+            <div class="gacha-controls">
+                <button class="gacha-button free">
+                    <i class="fas fa-sync-alt"></i> 無料ガチャを回す
+                    <span class="count">1</span>
+                </button>
+                <div class="gacha-currency">
+                    <i class="fas fa-coins"></i>
+                    <span>50</span>
+                </div>
+                <button class="gacha-button premium">
+                    <i class="fas fa-gem"></i> プレミアムガチャを回す
+                    <span class="count">10</span>
+                </button>
+            </div>
+            
+            <div class="gacha-types">
+                <div class="gacha-type active" data-type="world">
+                    <div class="gacha-type-icon"><i class="fas fa-globe"></i></div>
+                    <div class="gacha-type-name">世界ガチャ</div>
+                    <div class="gacha-type-description">世界中の文化アイテムが出現</div>
+                </div>
+                <div class="gacha-type" data-type="favorite">
+                    <div class="gacha-type-icon"><i class="fas fa-star"></i></div>
+                    <div class="gacha-type-name">推し国ガチャ</div>
+                    <div class="gacha-type-description">推し国の文化アイテムが出現しやすい</div>
+                </div>
+                <div class="gacha-type" data-type="special">
+                    <div class="gacha-type-icon"><i class="fas fa-crown"></i></div>
+                    <div class="gacha-type-name">スペシャルガチャ</div>
+                    <div class="gacha-type-description">レアアイテムが出現しやすい</div>
+                </div>
+            </div>
+            
+            <div class="recent-items">
+                <h3>最近獲得したアイテム</h3>
+                <div class="items-grid">
+                    <!-- Recent items will be loaded via JavaScript -->
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="/collection" class="encyclopedia-link">
+                        <i class="fas fa-book"></i> コレクションを見る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 世界ユースアトラス - 世界を楽しく知る冒険</p>
+    </footer>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/enhanced-gacha.js') }}"></script>
+    <script>
+        // Load user avatar in header
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerAvatar = document.getElementById('header-avatar');
+            const savedFace = localStorage.getItem('avatarFace') || 'face1';
+            const savedHair = localStorage.getItem('avatarHair') || 'hair1';
+            const savedClothes = localStorage.getItem('avatarClothes') || 'clothes1';
+            
+            headerAvatar.innerHTML = `
+                <div class="avatar-display" style="width: 100%; height: 100%;">
+                    <div class="avatar-face ${savedFace}"></div>
+                    <div class="avatar-hair ${savedHair}"></div>
+                    <div class="avatar-clothes ${savedClothes}"></div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

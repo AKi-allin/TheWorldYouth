@@ -129,7 +129,12 @@
     </footer>
     
     <!-- Custom JS -->
+    {% if enhanced_map %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/enhanced-map.css') }}">
+    <script src="{{ url_for('static', filename='js/enhanced-map.js') }}"></script>
+    {% else %}
     <script src="{{ url_for('static', filename='js/illustrated-map.js') }}"></script>
+    {% endif %}
     <script src="{{ url_for('static', filename='js/welcome-screen.js') }}"></script>
     <script>
         // Load user avatar in header

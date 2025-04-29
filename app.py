@@ -232,6 +232,10 @@ def delete_conversation(conversation_id):
 def gacha():
     return render_template('gacha.html')
 
+@app.route('/enhanced-gacha')
+def enhanced_gacha():
+    return render_template('enhanced-gacha.html')
+
 @app.route('/api/cultural-items', methods=['GET'])
 def get_cultural_items():
     cultural_items = load_cultural_items()
@@ -303,6 +307,14 @@ def favorite_countries():
 @app.route('/badges')
 def badges():
     return render_template('badges.html')
+
+@app.route('/enhanced-badges')
+def enhanced_badges():
+    return render_template('enhanced-badges.html')
+
+@app.route('/enhanced-map')
+def enhanced_map():
+    return render_template('index.html', enhanced_map=True)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)

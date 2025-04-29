@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>称号バッジ - 世界ユースアトラス</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/enhanced-badges.css') }}">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>世界ユースアトラス</h1>
+            <p>冒険の記録と称号</p>
+        </div>
+        <nav class="header-nav">
+            <a href="/" class="nav-button"><i class="fas fa-globe"></i> 世界地図</a>
+            <a href="/collection" class="nav-button"><i class="fas fa-book-open"></i> コレクション</a>
+            <a href="/gacha" class="nav-button"><i class="fas fa-gift"></i> ガチャ</a>
+            <a href="/favorite-countries" class="nav-button"><i class="fas fa-star"></i> 推し国</a>
+            <a href="/badges" class="nav-button active"><i class="fas fa-medal"></i> 称号バッジ</a>
+            <a href="/avatar" class="nav-button"><i class="fas fa-user-circle"></i> アバター</a>
+        </nav>
+        <div class="user-avatar" id="header-avatar">
+            <!-- Avatar will be loaded via JavaScript -->
+        </div>
+    </header>
+    
+    <main>
+        <div class="badges-container">
+            <div class="badges-header">
+                <h2><i class="fas fa-medal"></i> 称号バッジ</h2>
+                <p>冒険を続けて称号バッジを集めよう！</p>
+            </div>
+            
+            <div class="badges-stats">
+                <div class="stat">
+                    <span id="badges-count">5</span>
+                    <label>獲得バッジ</label>
+                </div>
+                <div class="stat">
+                    <span id="badges-percentage">50%</span>
+                    <label>達成率</label>
+                </div>
+            </div>
+            
+            <div class="badges-categories">
+                <button class="category-tab active" data-category="all">すべて</button>
+                <button class="category-tab" data-category="region">地域</button>
+                <button class="category-tab" data-category="collection">コレクション</button>
+                <button class="category-tab" data-category="activity">活動</button>
+                <button class="category-tab" data-category="special">特別</button>
+            </div>
+            
+            <div class="badges-grid">
+                <!-- Badges will be loaded via JavaScript -->
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner fa-spin"></i> バッジを読み込み中...
+                </div>
+            </div>
+            
+            <div class="recent-achievements">
+                <h3>最近の達成</h3>
+                <div class="achievements-list">
+                    <!-- Recent achievements will be loaded via JavaScript -->
+                    <p class="empty-message">まだ達成したバッジはありません。冒険を続けましょう！</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Badge Detail Modal -->
+        <div id="badge-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <div class="badge-detail">
+                    <div class="badge-icon">🌍</div>
+                    <div class="badge-info">
+                        <h2 id="badge-name">世界旅行者</h2>
+                        <p id="badge-description">世界中の様々な地域から会話を記録しよう</p>
+                        <div class="badge-progress">
+                            <div class="progress-label">進捗状況</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 33%"></div>
+                            </div>
+                            <div class="progress-text">2/6</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="badge-requirements">
+                    <h4>達成条件</h4>
+                    <ul id="requirements-list">
+                        <li class="completed">北米から会話を記録する</li>
+                        <li>南米から会話を記録する</li>
+                        <li class="completed">ヨーロッパから会話を記録する</li>
+                        <li>アフリカから会話を記録する</li>
+                        <li>アジアから会話を記録する</li>
+                        <li>オセアニアから会話を記録する</li>
+                    </ul>
+                </div>
+                
+                <div class="badge-actions">
+                    <button id="close-badge-detail" class="button primary">
+                        <i class="fas fa-check"></i> 了解
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 世界ユースアトラス - 世界を楽しく知る冒険</p>
+    </footer>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/enhanced-badges.js') }}"></script>
+    <script>
+        // Load user avatar in header
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerAvatar = document.getElementById('header-avatar');
+            const savedFace = localStorage.getItem('avatarFace') || 'face1';
+            const savedHair = localStorage.getItem('avatarHair') || 'hair1';
+            const savedClothes = localStorage.getItem('avatarClothes') || 'clothes1';
+            
+            headerAvatar.innerHTML = `
+                <div class="avatar-display" style="width: 100%; height: 100%;">
+                    <div class="avatar-face ${savedFace}"></div>
+                    <div class="avatar-hair ${savedHair}"></div>
+                    <div class="avatar-clothes ${savedClothes}"></div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

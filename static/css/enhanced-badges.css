@@ -1,0 +1,713 @@
+/* Enhanced Badge Styles for World Youth Atlas */
+.badges-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.badges-header {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.badges-header h2 {
+    font-size: 32px;
+    color: #9b59b6;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.badges-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #9b59b6, #3498db);
+    border-radius: 2px;
+}
+
+.badges-header p {
+    color: #666;
+    font-size: 18px;
+}
+
+/* Enhanced Badge Stats */
+.badges-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(52, 152, 219, 0.1) 100%);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.stat {
+    text-align: center;
+    position: relative;
+}
+
+.stat span {
+    display: block;
+    font-size: 48px;
+    font-weight: 700;
+    color: #9b59b6;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #9b59b6 0%, #3498db 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat label {
+    font-size: 16px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Circular Progress for Stats */
+.stat-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 15px;
+}
+
+.stat-circle svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.stat-circle circle {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+}
+
+.stat-circle .bg {
+    stroke: #f0f0f0;
+}
+
+.stat-circle .progress {
+    stroke: url(#badge-progress-gradient);
+    transition: stroke-dashoffset 1s ease;
+}
+
+.stat-circle .percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: 700;
+    color: #9b59b6;
+}
+
+/* Enhanced Badge Categories */
+.badges-categories {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.category-tab {
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.category-tab:hover {
+    background-color: #e9ecef;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-tab.active {
+    background: linear-gradient(135deg, #9b59b6 0%, #3498db 100%);
+    color: white;
+    box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3);
+}
+
+/* Enhanced Badge Grid */
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+    position: relative;
+    min-height: 200px;
+}
+
+.badge-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.badge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #9b59b6, #3498db);
+}
+
+.badge-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced Locked Badge Styling */
+.badge-card.locked {
+    background-color: #f8f9fa;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.badge-card.locked .badge-icon {
+    filter: grayscale(0.5) opacity(0.7);
+    position: relative;
+}
+
+.badge-card.locked .badge-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+}
+
+.badge-card.locked .badge-silhouette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.badge-card.locked .badge-hint {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    font-style: italic;
+}
+
+.badge-card.locked::after {
+    content: '\f023';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #999;
+    font-size: 18px;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced Badge Icon */
+.badge-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge-icon::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: radial-gradient(circle, rgba(155, 89, 182, 0.2) 0%, rgba(155, 89, 182, 0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 0.7; }
+}
+
+.badge-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.badge-category {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Enhanced Progress Bar */
+.badge-progress {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+.progress-bar {
+    height: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #9b59b6, #3498db);
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.2) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.2) 75%,
+        transparent 75%
+    );
+    background-size: 20px 20px;
+    animation: progressStripes 1s linear infinite;
+}
+
+@keyframes progressStripes {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 0; }
+}
+
+.progress-text {
+    font-size: 12px;
+    color: #666;
+    text-align: right;
+    font-weight: 500;
+}
+
+/* Enhanced Recent Achievements */
+.recent-achievements {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.recent-achievements::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, #9b59b6, #3498db);
+}
+
+.recent-achievements h3 {
+    font-size: 22px;
+    color: #333;
+    margin: 0 0 20px 0;
+    position: relative;
+    display: inline-block;
+}
+
+.recent-achievements h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #9b59b6;
+    border-radius: 1.5px;
+}
+
+.achievements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.achievement-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background-color: #9b59b6;
+}
+
+.achievement-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.achievement-icon {
+    font-size: 35px;
+    margin-right: 20px;
+    color: #9b59b6;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(155, 89, 182, 0.1);
+    border-radius: 50%;
+}
+
+.achievement-info {
+    flex: 1;
+}
+
+.achievement-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.achievement-date {
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.achievement-date i {
+    margin-right: 5px;
+    color: #9b59b6;
+}
+
+.achievement-description {
+    font-size: 14px;
+    color: #555;
+    margin: 8px 0 0 0;
+}
+
+/* Enhanced Badge Detail Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes scaleIn {
+    from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-button:hover {
+    background-color: #f0f0f0;
+    color: #333;
+    transform: rotate(90deg);
+}
+
+.badge-detail {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.badge-detail .badge-icon {
+    font-size: 100px;
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+}
+
+.badge-detail .badge-info {
+    flex: 1;
+}
+
+.badge-detail h2 {
+    font-size: 28px;
+    color: #333;
+    margin: 0 0 15px 0;
+}
+
+.badge-detail p {
+    font-size: 16px;
+    color: #666;
+    margin: 0 0 20px 0;
+    line-height: 1.6;
+}
+
+.badge-detail .badge-progress {
+    margin-bottom: 25px;
+}
+
+.badge-detail .progress-label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.badge-detail .progress-bar {
+    height: 15px;
+    margin-bottom: 10px;
+}
+
+.badge-detail .progress-text {
+    font-size: 14px;
+    text-align: right;
+    font-weight: 500;
+}
+
+.badge-requirements h4 {
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 15px 0;
+}
+
+.badge-requirements ul {
+    padding-left: 25px;
+    margin: 0;
+}
+
+.badge-requirements li {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.badge-requirements li.completed {
+    color: #27ae60;
+}
+
+.badge-requirements li.completed::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 8px;
+    color: #27ae60;
+}
+
+.badge-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.badge-actions button {
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: 'Noto Sans JP', 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button.primary {
+    background: linear-gradient(135deg, #9b59b6 0%, #3498db 100%);
+    color: white;
+    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
+}
+
+.button.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(155, 89, 182, 0.4);
+}
+
+/* Badge Unlock Animation */
+@keyframes badgeUnlock {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.badge-unlocked {
+    animation: badgeUnlock 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .badges-stats {
+        gap: 20px;
+        flex-direction: row;
+    }
+    
+    .badges-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .badge-detail {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .badge-detail .badge-icon {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .badges-container {
+        padding: 15px;
+    }
+    
+    .badges-header h2 {
+        font-size: 24px;
+    }
+    
+    .badges-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .badges-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 15px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .badge-detail .badge-icon {
+        font-size: 80px;
+    }
+    
+    .badge-detail h2 {
+        font-size: 22px;
+    }
+}
